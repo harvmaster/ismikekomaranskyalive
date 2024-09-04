@@ -1,10 +1,14 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="lHh Lpr lFf" class="glassmorphism-page">
+    <!-- <q-header>
       <q-toolbar>
-        <q-toolbar-title> Quasar App </q-toolbar-title>
+        <q-toolbar-title class="q-pa-md"
+          >Is Mike Komaransky Alive</q-toolbar-title
+        >
       </q-toolbar>
-    </q-header>
+    </q-header> -->
+
+    <div class="color-burst" />
 
     <q-page-container>
       <router-view />

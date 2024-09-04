@@ -1,7 +1,5 @@
 <template>
-  <q-page class="glassmorphism-page">
-    <!-- <div class="color-burst" /> -->
-
+  <q-page class="flex items-center justify-center">
     <!-- Display loading icon until requests complete -->
     <q-spinner v-if="loading" />
 
@@ -34,67 +32,21 @@
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;700&display=swap');
 :root {
   --heart-rate: 1s;
 }
 
-.glassmorphism-page {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f0f0f0;
-  font-family: 'Inter', sans-serif;
-  position: relative;
-  overflow: hidden;
-}
-
-.color-burst {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 200vmax;
-  height: 200vmax;
-  transform: translate(-50%, -50%);
-  background: conic-gradient(
-    from 0deg,
-    rgba(255, 45, 85, 0.2),
-    rgba(255, 149, 0, 0.2),
-    rgba(255, 204, 0, 0.2),
-    rgba(52, 199, 89, 0.2),
-    rgba(90, 200, 250, 0.2),
-    rgba(0, 122, 255, 0.2),
-    rgba(88, 86, 214, 0.2),
-    rgba(175, 82, 222, 0.2)
-  );
-  opacity: 0.4;
-  filter: blur(40px);
-  animation: rotate 30s linear infinite;
-}
-
-.glass-panel {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  text-align: center;
-  max-width: 80%;
-}
-
 .title {
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #333;
+  color: #f0f0f0;
 }
 
 .subtitle {
   font-size: 1.2rem;
   font-weight: 300;
-  color: #666;
+  color: #d0d0d0;
 }
 
 .heart-icon {
@@ -125,18 +77,18 @@
     transform: scale(100%);
   }
 }
-
+/*
 @media (max-width: 768px) {
   .glass-panel {
-    padding: 30px;
+    padding: 20px;
   }
   .title {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   .subtitle {
     font-size: 1rem;
   }
-}
+} */
 </style>
 
 <script setup lang="ts">
