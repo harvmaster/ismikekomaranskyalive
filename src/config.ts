@@ -8,6 +8,4 @@ export const BLOCKEXPLORER_URL =
 // Electrum Servers.
 export const ELECTRUM_SERVERS = process.env.ELECTRUM_SERVERS
   ? process.env.ELECTRUM_SERVERS.split(',')
-  : ['electrum.imaginary.cash'];
-  // : ['bch.imaginary.cash', 'cashnode.bch.ninja', 'electrum.imaginary.cash'];
-  // : ['cashnode.bch.ninja', 'electrum.imaginary.cash'];
+  : ['bch.imaginary.cash', 'cashnode.bch.ninja', 'electrum.imaginary.cash'];
