@@ -10,20 +10,28 @@
 
 
 const { configure } = require('quasar/wrappers');
+const { nodePolyfills } = require('vite-plugin-node-polyfills');
+const { string } = require('vite-plugin-string');
 
 
 module.exports = configure(function (/* ctx */) {
   return {
+    eslint: {
+      // fix: true,
+      // include: [],
+      // exclude: [],
+      // rawOptions: {},
+      warnings: true,
+      errors: true,
+    },
+
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
 
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: [
-      
-      
-    ],
+    boot: [],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: [
@@ -52,6 +60,15 @@ module.exports = configure(function (/* ctx */) {
       },
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'
+
+      env: {
+        BASE_PATH: process.env.BASE_PATH || '',
+      },
+
+      rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
+
+      publicPath: `/${process.env.BASE_PATH || ''}`,
+
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
@@ -70,6 +87,16 @@ module.exports = configure(function (/* ctx */) {
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
 
+      extendViteConf(viteConf) {
+        // Allow relative URLs to work for Gitlab Pages deployment.
+        viteConf.base = '';
+
+        viteConf.build.commonjsOptions = {
+          // NOTE: We need this to compile AnyHedge Library + Dependencies to work with Vite.
+          transformMixedEsModules: true,
+        };
+      },
+
       vitePlugins: [
         ['vite-plugin-checker', {
           vueTsc: {
@@ -78,7 +105,20 @@ module.exports = configure(function (/* ctx */) {
           eslint: {
             lintCommand: 'eslint "./**/*.{js,ts,mjs,cjs,vue}"'
           }
-        }, { server: false }]
+        }
+        , { server: false }],
+        [
+          nodePolyfills,
+          {
+            include: ['event', 'net', 'tls'],
+          },
+        ],
+        [
+          string,
+          {
+            include: '**/*.html',
+          },
+        ],
       ]
     },
 
@@ -103,7 +143,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: ['Dialog', 'Notify', 'Loading'],
     },
 
     // animations: 'all', // --- includes all animations

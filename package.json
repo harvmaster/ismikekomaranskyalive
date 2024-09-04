@@ -16,7 +16,12 @@
     "@quasar/extras": "^1.16.4",
     "quasar": "^2.16.0",
     "vue": "^3.4.18",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "electrum-cash": "2.0.10-development.3428777728",
+    "@electrum-cash/network": "^3.3.0",
+    "@sanity/eventsource": "^5.0.2",
+    "events": "^3.3.0",
+    "vite-plugin-node-polyfills": "^0.22.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.16.0",
@@ -30,7 +35,8 @@
     "@types/node": "^12.20.21",
     "@quasar/app-vite": "^1.9.0",
     "autoprefixer": "^10.4.2",
-    "typescript": "~5.5.4"
+    "typescript": "~5.5.4",
+    "vite-plugin-string": "^1.2.3"
   },
   "engines": {
     "node": "^20 || ^18 || ^16",
