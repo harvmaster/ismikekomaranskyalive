@@ -57,7 +57,20 @@ class TransactionMonitor {
   ) {
     // Find the highest block. If the block is equal to 0, it is in the mempool, so we want to use that
     const highestBlock = transactions.reduce((highest: number, tx) => {
-      if ((tx.height = 0)) return (highest = 0);
+      // -1 means tx relies on tx in the mempool
+      if (tx.height == -1) {
+        highest = -1;
+        return highest;
+      }
+      // 0 means tx is in the mempool
+      if (tx.height === 0 && highest != -1) {
+        highest = 0;
+        return highest;
+      }
+
+      // If the highest is a tx in the mempool, return mempool height
+      if (highest < 1) return highest;
+
       highest = tx.height > highest ? tx.height : highest;
       return highest;
     }, 0);
