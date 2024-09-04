@@ -58,7 +58,8 @@ class TransactionMonitor {
     // Find the highest block. If the block is equal to 0, it is in the mempool, so we want to use that
     const highestBlock = transactions.reduce((highest: number, tx) => {
       if ((tx.height = 0)) return (highest = 0);
-      return (highest = tx.height > highest ? tx.height : highest);
+      highest = tx.height > highest ? tx.height : highest;
+      return highest;
     }, 0);
 
     // Remove the transactions that arent in the highest block
@@ -80,11 +81,21 @@ class TransactionMonitor {
 
     // Wait for all of the responses
     const transactionsRes = await Promise.all(transactionPromises);
+    console.log(transactionsRes);
 
     // Get the one with the highest timestamp
-    const latestTransaction = transactionsRes.reduce(
-      (latest, tx) => (latest = tx.time > latest.time ? tx : latest)
-    );
+    const latestTransaction = transactionsRes.reduce((latest, tx) => {
+      const { timestamp } = this.readTransactionOpReturn(tx) || {
+        timestamp: 0,
+      };
+      const { timestamp: latestTimestamp } = this.readTransactionOpReturn(
+        tx
+      ) || { timestamp: 0 };
+
+      latest = timestamp > latestTimestamp ? tx : latest;
+
+      return latest;
+    });
 
     // Return latest transaction
     return latestTransaction;
