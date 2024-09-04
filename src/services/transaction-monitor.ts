@@ -81,7 +81,6 @@ class TransactionMonitor {
 
     // Wait for all of the responses
     const transactionsRes = await Promise.all(transactionPromises);
-    console.log(transactionsRes);
 
     // Get the one with the highest timestamp
     const latestTransaction = transactionsRes.reduce((latest, tx) => {
