@@ -1,7 +1,7 @@
 {
-  "name": "ismikekomarankydead",
+  "name": "ismikekomarankyalive",
   "version": "0.0.1",
-  "description": "\u0017\u0017Website to display whether Mike Komaransky is alive based on transactions that are submitted to the BCH Blockchain",
+  "description": "Website to display whether Mike Komaransky is alive based on transactions that are submitted to the BCH Blockchain",
   "productName": "Is Mike Komaransky Dead",
   "author": "Harvey <hzuccon@gmail.com>",
   "private": true,
