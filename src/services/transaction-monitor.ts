@@ -102,7 +102,7 @@ class TransactionMonitor {
         timestamp: 0,
       };
       const { timestamp: latestTimestamp } = this.readTransactionOpReturn(
-        tx
+        latest
       ) || { timestamp: 0 };
 
       latest = timestamp > latestTimestamp ? tx : latest;
