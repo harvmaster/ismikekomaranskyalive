@@ -4,7 +4,7 @@
     <q-spinner v-if="loading" />
 
     <!-- Display 'yes' or 'maybe' for whether he is alive -->
-    <div v-else class="glass-panel">
+    <div v-else class="">
       <!-- Yes or maybe -->
       <a
         class="title no-text-decoration"
