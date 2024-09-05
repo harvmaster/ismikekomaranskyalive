@@ -1,5 +1,11 @@
+@font-face {
+  font-family: comic-sans-font;
+  src: url('fonts/comic-sans/comic-sans.ttf');
+}
+
 // app global css in SCSS form
 .glassmorphism-page {
+  font-family: comic-sans-font;
   background: linear-gradient(
     135deg,
     #3a3a3a,
@@ -37,4 +43,8 @@
   border: 1px solid rgba(255, 255, 255, 0.25);
   text-align: center;
   max-width: 80%;
+}
+
+.no-text-decoration {
+  text-decoration: none;
 }

@@ -6,39 +6,26 @@
     <!-- Display 'yes' or 'maybe' for whether he is alive -->
     <div v-else class="glass-panel">
       <!-- Yes or maybe -->
-      <p class="title">
-        {{ isAlive ? 'Yes' : 'Maybe' }}
-      </p>
+      <a
+        class="title no-text-decoration"
+        target="_blank"
+        href="https://blockchair.com/bitcoin-cash/address/qqyy3mss5vmthgnu0m5sm39pcfq8z799ku2nxernca"
+      >
+        {{ isAlive ? 'yes' : 'maybe' }}
+      </a>
+    </div>
 
-      <!-- Heart Rate information -->
-      <div class="row justify-center">
-        <q-icon class="heart-icon" name="favorite" color="red-5" size="2em" />
-        <p class="subtitle heart-rate">
-          {{ heartRate }}
-        </p>
-      </div>
-
-      <!-- View address information on blockchair -->
-      <div class="">
-        <a
-          class="text-green-4 text-weight-bold"
-          target="_blank"
-          href="https://blockchair.com/bitcoin-cash/address/qqyy3mss5vmthgnu0m5sm39pcfq8z799ku2nxernca"
-          >View with Blockchair</a
-        >
-      </div>
+    <!-- Heart Button in bottom right -->
+    <div class="fixed-bottom-right q-pa-md">
+      <HeartButtonVue :isAlive="isAlive" :heartRate="heartRate" />
     </div>
   </q-page>
 </template>
 
 <style>
-:root {
-  --heart-rate: 1s;
-}
-
 .title {
   font-size: 3rem;
-  font-weight: 700;
+  /* font-weight: 700; */
   margin-bottom: 1rem;
   color: #f0f0f0;
 }
@@ -48,47 +35,6 @@
   font-weight: 300;
   color: #d0d0d0;
 }
-
-.heart-icon {
-  animation: beat infinite;
-  animation-duration: var(--heart-rate);
-}
-
-@keyframes rotate {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-@keyframes beat {
-  0% {
-    transform: scale(100%);
-  }
-  10% {
-    transform: scale(110%);
-  }
-  20% {
-    transform: scale(100%);
-  }
-  100% {
-    transform: scale(100%);
-  }
-}
-/*
-@media (max-width: 768px) {
-  .glass-panel {
-    padding: 20px;
-  }
-  .title {
-    font-size: 2rem;
-  }
-  .subtitle {
-    font-size: 1rem;
-  }
-} */
 </style>
 
 <script setup lang="ts">
@@ -96,6 +42,8 @@ import { ref, computed } from 'vue';
 
 import { App } from 'src/services/app.js';
 import { TransactionGet } from 'src/services/electrum-types';
+
+import HeartButtonVue from 'src/components/HeartButton.vue';
 
 const loading = ref(true);
 const latestTransaction = ref<TransactionGet['response']>();
@@ -131,22 +79,13 @@ const isAlive = computed<boolean>(() => {
 
 const heartRate = computed(() => {
   // If we can't read the OP_RETURN data, something probably went wrong
-  if (!latestTransactionData.value) return false;
+  if (!latestTransactionData.value) return 0;
 
   // Get timestamp data from OP_RETURN
   const { heartRate } = latestTransactionData.value;
 
-  // Set the timer for the heart icon to beat in-sync with the BPM
-  const beatTime = getHeartRateTime(heartRate);
-  document.documentElement.style.setProperty('--heart-rate', `${beatTime}s`);
-
   return heartRate || 0;
 });
-
-// Get the length between each beat in seconds
-const getHeartRateTime = (heartRate: number) => {
-  return 60 / heartRate;
-};
 
 // Get the latest transaction and set latestTransaction above
 const getLatestTransaction = async () => {
