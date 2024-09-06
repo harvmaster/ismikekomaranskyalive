@@ -74,7 +74,7 @@ class TransactionMonitor {
 
       highest = tx.height > highest ? tx.height : highest;
       return highest;
-    }, 0);
+    }, 2);
 
     // Remove the transactions that arent in the highest block
     const validTransactions = transactions.filter(
